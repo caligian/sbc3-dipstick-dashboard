@@ -2,19 +2,22 @@ library(data.table)
 library(ggplot2)
 
 message('setting config')
-config <- rlang::env(datatypes = c(Pre = 'pre', post = 'post'),
-                     age_groups = c('10-13 years', '14-17 years'),
-                     colors = c('pre' = 'lightblue', 'post' = 'salmon'),
-                     input_dir = 'csv', output_dir = 'output/csv',
-                     lookup_dir = 'csv/lookup', parsed_dir = 'csv/parsed',
-                     raw_dir = 'csv/raw', input_file = 'csv/master.csv',
-                     parsed_input_file = 'csv/master-parsed.csv',
-                     lookup_file = 'csv/lookup/master.csv')
+
+config <- rlang::env(
+  datatypes = c(Pre = 'pre', post = 'post'),
+  age_groups = c('10-13 years', '14-17 years'),
+  colors = c('pre' = 'lightblue', 'post' = 'salmon'),
+  input_dir = 'csv', lookup_dir = 'csv/lookup',
+  parsed_dir = 'csv/parsed', raw_dir = 'csv/raw',
+  input_file = 'csv/master.csv', lookup_file = 'csv/lookup/master.csv',
+  parsed_input_file = 'csv/master-parsed.csv',
+)
 
 ## path should be a vector of strings from root dir
 config$path <- function(type, path, district = NULL) {
   .dir <- config[[glue::glue("{type}_dir")]]
-  stopifnot(!is.null(.dir)) 
+  stopifnot(!is.null(.dir))
+
   if (!is.null(district)) {
     paste(c(.dir, path), collapse = '/')
   } else {
@@ -22,57 +25,59 @@ config$path <- function(type, path, district = NULL) {
   }
 }
 
-config$variables.lookup <- config$path('lookup', 'variables.csv') |>
-  data.table::fread(na.strings = c('', 'NA'))
+config$variables_lookup <- config$path('lookup', 'variables.csv')
+config$variables_lookup <- data.table::fread(config$variables_lookup, na.strings = c('', 'NA'))
 
-config$codes.lookup <- config$path('lookup', 'codes.csv') |>
-  data.table::fread(na.strings = c('', 'NA'))
-data.table::setkeyv(config$codes.lookup, c('variable', 'code'))
+config$codes_lookup <- config$path('lookup', 'codes.csv')
+config$codes_lookup <- data.table::fread(config$codes_lookup, na.strings = c('', 'NA'))
+data.table::setkeyv(config$codes_lookup, c('variable', 'code'))
 
-config$variables <- unique(config$variables.lookup$variable)
-config$columns <- unique(config$variables.lookup$column)
+config$variables <- unique(config$variables_lookup$variable)
+config$columns <- unique(config$variables_lookup$column)
 
 config$mkdir <- function(type, path, district = NULL) {
   .dir <- config$dirname(type, path, district = district)
   dir.create(.dir, showWarnings = T, recursive = T)
 }
 
-config$cache <- hash::hash(title = hash::hash(),
-                           tasks = hash::hash(),
-                           variables = hash::hash(),
-                           limits = hash::hash())
+config$cache <- hash::hash(
+  title = hash::hash(),
+  tasks = hash::hash(),
+  variables = hash::hash(),
+  limits = hash::hash()
+)
 
-config$cache.get <- function(type, key) {
+config$cache_get <- function(type, key) {
   config$cache[[type]][[key]]
 }
 
-config$cache.set <- function(type, key, value) {
+config$cache_set <- function(type, key, value) {
   config$cache[[type]][[key]] <- value
 }
 
-config$variables.lookup.get <- function(pat, startswith = F, endswith = F) {
+config$variables_lookup_get <- function(pat, startswith = F, endswith = F) {
   pat <- if (startswith) paste0('^', pat) else pat
   pat <- if (endswith) paste0(pat, '$') else pat
-  .value <- config$cache.get('variables', pat)
+  .value <- config$cache_get('variables', pat)
 
   if (is.null(.value)) {
-    .value <- config$variables.lookup[stringr::str_detect(column, pat)]
-    config$cache.set('variables', pat, .value)
+    .value <- config$variables_lookup[stringr::str_detect(column, pat)]
+    config$cache_set('variables', pat, .value)
     .value
   } else {
     .value
   }
 }
 
-config$vlookup <- config$variables.lookup.get
+config$vlookup <- config$variables_lookup_get
 
 config$title <- function(pat) {
-  .value <- config$cache.get('title', pat)
+  .value <- config$cache_get('title', pat)
   if (!is.null(.value)) {
     .value
   } else {
-    .value <- unique(config$variables.lookup.get(pat)$title)
-    config$cache.set('title', pat, .value)
+    .value <- unique(config$variables_lookup_get(pat)$title)
+    config$cache_set('title', pat, .value)
     .value
   }
 }
@@ -80,9 +85,9 @@ config$title <- function(pat) {
 config$unabbrev <- function(data) {
   if (is.null(data$description)) {
     message('unabbreviating columns')
-    .index <- match(data$column, config$variables.lookup$column)
-    .desc <- config$variables.lookup$desc[.index]
-    .tasks <- config$variables.lookup$task[.index]
+    .index <- match(data$column, config$variables_lookup$column)
+    .desc <- config$variables_lookup$desc[.index]
+    .tasks <- config$variables_lookup$task[.index]
     .tasks <- sapply(seq_along(.tasks), \(.ind) {
       .task <- .tasks[[.ind]]
       if (is.na(.task)) {
@@ -100,7 +105,7 @@ config$unabbrev <- function(data) {
 }
 
 config$limits <- function(.variable) {
-  .lookup <- config$variables.lookup.get(.variable, startswith = T)
+  .lookup <- config$variables_lookup_get(.variable, startswith = T)
   .start <- unique(.lookup$start_code)
   .end <- unique(.lookup$end_code)
   c(.start, .end)
@@ -109,30 +114,23 @@ config$limits <- function(.variable) {
 config$decode <- function(data) {
   message('decoding responses')
   if (all(is.na(unique(data$value)))) {
-    .codes <- config$codes.lookup[variable %in% unique(data$variable)]
+    .codes <- config$codes_lookup[variable %in% unique(data$variable)]
     .values <- list(data$variable, data$code)
-    data$value <- config$codes.lookup[.values]$value
+    data$value <- config$codes_lookup[.values]$value
     data
   } else {
     data
   }
 }
 
-config$limits.filter <- function(data) {
+config$limits_filter <- function(data) {
   do.call(
     rbind,
     lapply(config$variables, \(.variable) {
-      limits <- config$cache.get('limits', .variable)
-      limits <- if (!is.null(limits)) {
-                  limits
-                } else {
-                  .limits <- config$limits(.variable)
-                  config$cache.set('limits', .variable, .limits)
-                  .limits
-                }
-      data[variable == .variable &
-           code >= .limits[[1]] &
-           code <= .limits[[2]]]
+      limits <- config$cache_get('limits', .variable)
+      if (is.null(limits)) limits <- config$limits(.variable)
+      config$cache_set('limits', .variables, limits)
+      data[variable == .variable & code >= limits[[1]] & code <= limits[[2]]]
     })
   )
 }
@@ -183,10 +181,13 @@ config$plotters <- list(
   },
   '(child_helpline|legal_marriage_age|financial_decisions)' = function(data, variable = NULL, roc = F) {
 
-    .ylab <- switch(variable,
-                    child_helpline = 'Which number?',
-                    legal_marriage_age = 'Appropriate age (group)',
-                    financial_decisions = 'Who should make the decision?')
+    .ylab <- switch(
+      variable,
+      child_helpline = 'Which number?',
+      legal_marriage_age = 'Appropriate age (group)',
+      financial_decisions = 'Who should make the decision?'
+    )
+
     if (roc) {
       data |>
         ggplot(mapping = aes(y = value, label = diff)) +
@@ -320,7 +321,7 @@ config$plotters <- list(
   }
 )
 
-config$plotters.get <- function(variable) {
+config$plotters_get <- function(variable) {
   .plotter <- config$plotters[[variable]]
   if (!is.null(.plotter)) {
     .plotter
@@ -337,14 +338,28 @@ config$plotters.get <- function(variable) {
 
 config$theme <- function() {
   theme_bw() +
-    theme(axis.text.x = element_text(size = 16),
-          axis.text.y = element_text(size = 16),
-          axis.title = element_text(size = 18),
-          strip.text = element_text(size = 13),
-          legend.text = element_text(size = 16),
-          legend.position = 'bottom')
+    theme(
+      axis.text.x = element_text(size = 16),
+      axis.text.y = element_text(size = 16),
+      axis.title = element_text(size = 18),
+      strip.text = element_text(size = 13),
+      legend.text = element_text(size = 16),
+      legend.position = 'bottom'
+    )
 }
 
 config$rotate_labels <- function() {
   theme(axis.text.x = element_text(angle = 90))
-} 
+}
+
+config$write <- function(x, dest) {
+  .dirname <- dirname(dest)
+  if (!dir.exists(.dirname)) dir.create(.dirname, recursive = T)
+  data.table::fwrite(x, dest)
+}
+
+config$read <- function(src) {
+  if (file.exists(src)) {
+    data.table::fread(src)
+  }
+}

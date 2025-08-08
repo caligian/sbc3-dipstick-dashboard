@@ -7,7 +7,7 @@ library(bslib)
 
 ui <- function(root) {
   variables <- config$variables
-  names(variables) <- config$variables.lookup$short_desc[match(variables, config$variables.lookup$variable)]
+  names(variables) <- config$variables_lookup$short_desc[match(variables, config$variables_lookup$variable)]
   districts <- unique(root$data$district)
   names(districts) <- sapply(districts, \(.district) {
     if (.district == 'csn') 'CSN' else str_to_title(.district)
@@ -26,7 +26,7 @@ ui <- function(root) {
       selected = age_groups,
       multiple = T
     ),
-    selectInput( 
+    selectInput(
       'variable', 'Parameter',
       choices = variables,
       selected = 'serving_guests'
@@ -41,24 +41,32 @@ ui <- function(root) {
       navset_tab(
         nav_panel("Summary table",
           navset_underline(
-            nav_panel("Girl Respondents",
-                      br(),
-                      DT::DTOutput("girl_table", height = '1000px')),
-            nav_panel("Boy Respondents",
-                      br(),
-                      DT::DTOutput("boy_table", height = '1000px')),
+            nav_panel(
+              "Boy Respondents",
+              br(),
+              DT::DTOutput("boy_table", height = '1000px')
+            ),
+            nav_panel(
+              "Girl Respondents",
+              br(),
+              DT::DTOutput("girl_table", height = '1000px')
             )
+          )
         ),
         nav_panel(
           "in %",
           navset_underline(
-            nav_panel("Boy respondents",
-                      br(),
-                      plotOutput('boy_plot', height = '700px', width = '100%')),
-            nav_panel("Girl respondents",
-                      br(),
-                      plotOutput('girl_plot', height = '700px', width = '100%')),
-            )
+            nav_panel(
+              "Boy respondents",
+              br(),
+              plotOutput('boy_plot', height = '700px', width = '100%')
+            ),
+            nav_panel(
+              "Girl respondents",
+              br(),
+              plotOutput('girl_plot', height = '700px', width = '100%')
+            ),
+          )
         ),
         nav_panel(
           "% change",

@@ -1,0 +1,63 @@
+variable,code,value
+games,0,
+games,1,Boys only
+games,2,Girls only
+games,3,Both
+social,0,
+social,1,Boys only
+social,2,Girls only
+social,3,Both
+prof,0,
+prof,1,Boys only
+prof,2,Girls only
+prof,3,Both
+aspirations,0,
+aspirations,1,Yes
+aspirations,2,No
+like_games,0,
+like_games,1,Yes
+like_games,2,No
+chores,0,
+chores,1,"Men (father, brothers)"
+chores,2,"Women (mother, sisters)"
+chores,3,Myself
+chores,4,Everybody
+chores,5,Men and myself
+chores,6,Women and myself
+chores,7,"Men, women and myself"
+chores,8,Men and women
+legal_marriage_age,0,
+legal_marriage_age,1,18 years for both
+legal_marriage_age,2,12-17 years
+legal_marriage_age,3,Any age
+legal_marriage_age,4,18 for girls and 21 for boys
+freedom,0,No
+freedom,1,Yes
+cons,0,No
+cons,1,Yes
+financial_decisions,1,Father
+financial_decisions,2,Mother
+financial_decisions,3,Father and Mother
+financial_decisions,4,Everybody
+financial_decisions,5,Myself
+child_helpline,0,
+child_helpline,1,1098
+child_helpline,2,112
+child_helpline,3,1098+112
+child_helpline,4,Any other 
+child_helpline,5,1098 and other
+child_helpline,6,112 and other
+child_helpline,7,1098+112 and other
+serving_guests,0,
+serving_guests,1,Father/Father+Brothers
+serving_guests,2,Mother/Mother+Sisters
+serving_guests,3,Myself
+serving_guests,4,Everybody
+serving_guests,5,Only brothers
+serving_guests,6,Mother+Father
+serving_guests,7,Myself+Mother
+serving_guests,8,Myself+Father
+serving_guests,9,Myself+Brothers
+early_pregnancy,0,
+early_pregnancy,1,Yes
+early_pregnancy,2,No

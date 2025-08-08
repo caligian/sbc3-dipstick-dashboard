@@ -1,0 +1,49 @@
+start_code,end_code,variable,column,desc,short_desc,task,title
+1,2,aspirations,aspirations,Can you share your aspirations with your parents and other adults?,Share aspirations,NA,Can you share your aspirations with your parents and other adults?
+1,3,child_helpline,child_helpline,Which childhelpline number do you identify?,Identifying child helpline number,NA,Which childhelpline number do you identify?
+1,8,chores,chores_6a,1) Who should do the household chore of laundry?,Household chores and gender,Laundry,Who should do the following household chores?
+1,8,chores,chores_6b,2) Who should do the household chore of cooking?,Household chores and gender,Cooking,Who should do the following household chores?
+1,8,chores,chores_6c,3) Who should do the household chore of driving?,Household chores and gender,Driving,Who should do the following household chores?
+1,8,chores,chores_6d,4) Who should do the household chore of grocery shopping?,Household chores and gender,Grocery shopping,Who should do the following household chores?
+1,8,chores,chores_6e,5) Who should do the household chore of house cleaning?,Household chores and gender,House cleaning,Who should do the following household chores?
+1,8,chores,chores_6f,6) Who should do the household chore of financial decisions?,Household chores and gender,Financial decisions,Who should do the following household chores?
+1,8,chores,chores_6g,7) Who should do the household chore of smart phone work?,Household chores and gender,Smartphone work,Who should do the following household chores?
+1,2,early_pregnancy,early_pregnancy,Can pregnancy within a year of child marriage cause problems to a girl?,Early pregnancy,NA,Can pregnancy within a year of child marriage cause problems to a girl?
+0,1,cons,cons_10a,1) Can early motherhood lead to inadequate education?,Early conception and consequences,Inadequate education,Can early motherhood lead to following consequences?
+0,1,cons,cons_10b,2) Can early motherhood lead to good health?,Early conception and consequences,Good health,Can early motherhood lead to following consequences?
+0,1,cons,cons_10c,3) Can early motherhood lead to malnourished children?,Early conception and consequences,Malnourished children,Can early motherhood lead to following consequences?
+0,1,cons,cons_10d,4) Can early motherhood lead to financial difficulties?,Early conception and consequences,Financial difficulties,Can early motherhood lead to following consequences?
+0,1,cons,cons_10e,5) Can early motherhood lead to mental distress?,Early conception and consequences,Mental distress,Can early motherhood lead to following consequences?
+0,1,cons,cons_10f,6) Can early motherhood lead to financial freedom?,Early conception and consequences,Financial freedom,Can early motherhood lead to following consequences?
+0,1,cons,cons_10g,7) Can early motherhood lead to higher education?,Early conception and consequences,Higher education,Can early motherhood lead to following consequences?
+1,5,financial_decisions,financial_decisions,Who should take financial decisions?,Financial decision making and gender,NA,Who should take financial decisions?
+0,1,freedom,freedom_9a,1) Would you like to have the freedom of studying?,Freedoms and gender,Studying,Would like to have the following freedoms?
+0,1,freedom,freedom_9b,2) Would you like to have the freedom of doing housework?,Freedoms and gender,Doing housework,Would like to have the following freedoms?
+0,1,freedom,freedom_9c,3) Would you like to have the freedom of playing with friends on holidays?,Freedoms and gender,Playing with friends,Would like to have the following freedoms?
+0,1,freedom,freedom_9d,4) Would you like to have the freedom of reasons for marriage?,Freedoms and gender,Reason for marriage,Would like to have the following freedoms?
+0,1,freedom,freedom_9e,5) Would you like to have the freedom of choosing a career?,Freedoms and gender,Choosing a career,Would like to have the following freedoms?
+0,1,freedom,freedom_9f,6) Would you like to have the freedom of going for a walk?,Freedoms and gender,Going for a walk,Would like to have the following freedoms?
+1,3,games,games_2a,1) Who can play Kho-Kho?,Games and gender,Kho-Kho,Would like to play the following games?
+1,3,games,games_2b,2) Who can play Chippit?,Games and gender,Chippit,Would like to play the following games?
+1,3,games,games_2c,3) Who can play Cricket?,Games and gender,Cricket,Would like to play the following games?
+1,3,games,games_2d,4) Who can play Hockey?,Games and gender,Hockey,Would like to play the following games?
+1,3,games,games_2e,5) Who can play Kabaddi?,Games and gender,Kabaddi,Would like to play the following games?
+1,3,games,games_2f,6) Who can play Lagori?,Games and gender,Lagori,Would like to play the following games?
+1,3,games,games_2g,7) Who can play Throw-ball?,Games and gender,Throw-Ball,Would like to play the following games?
+1,2,like_games,like_games,Do you like games?,Liking games,NA,Do you like games?
+1,3,prof,prof_3a,1) Who can be a doctor?,Profession and gender,Doctor,Which professions would you pursue?
+1,3,prof,prof_3b,2) Who can be a nurse?,Profession and gender,Nurse,Which professions would you pursue?
+1,3,prof,prof_3c,3) Who can be a soldier?,Profession and gender,Soldier,Which professions would you pursue?
+1,3,prof,prof_3d,4) Who can be a scientist?,Profession and gender,Scientist,Which professions would you pursue?
+1,3,prof,prof_3e,5) Who can be a chef?,Profession and gender,Chef,Which professions would you pursue?
+1,3,prof,prof_3f,6) Who can be a teacher?,Profession and gender,Teacher,Which professions would you pursue?
+1,3,prof,prof_3g,7) Who can be a farmer?,Profession and gender,Farmer,Which professions would you pursue?
+1,9,serving_guests,serving_guests,Who serves the guests at home?,Serving guests and gender,NA,Who serves the guests at home?
+1,3,social,social_7a,1) Whom does society expect to be fearless?,Societal expectation and gender,Fearless,What does the society expect you to be?
+1,3,social,social_7b,2) Whom does society expect to be physically strong?,Societal expectation and gender,Physically strong,What does the society expect you to be?
+1,3,social,social_7c,3) Whom does society expect to be sensitive?,Societal expectation and gender,Sensitive,What does the society expect you to be?
+1,3,social,social_7d,4) Whom does society expect to be soft-spoken?,Societal expectation and gender,Soft-spoken,What does the society expect you to be?
+1,3,social,social_7e,5) Whom does society expect to be easily affected?,Societal expectation and gender,Easily affected,What does the society expect you to be?
+1,3,social,social_7f,6) Whom does society expect to be talkative?,Societal expectation and gender,Talkative,What does the society expect you to be?
+1,3,social,social_7g,7) Whom does society expect to be shy?,Societal expectation and gender,Shy,What does the society expect you to be?
+1,4,legal_marriage_age,legal_marriage_age,What is the legal marriage age?,Legal marriage age,,What do you think is the legal marriage age?

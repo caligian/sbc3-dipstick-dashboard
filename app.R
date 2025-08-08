@@ -4,11 +4,13 @@ source("R/server.R")
 source("R/utils.R")
 
 options(
-  shiny.launcher.browser = T,
-  shiny.host = '127.0.0.1',
-  shiny.port = 5858
+  shiny.launch.browser = T,
+  shiny.host = '127.0.0.1'
 )
 
 invisible(root$read())
 
-shinyApp(ui = ui(root), server = server(root))
+shinyApp(
+  ui = ui(root),
+  server = server(root)
+)

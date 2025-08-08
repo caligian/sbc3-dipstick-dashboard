@@ -6,10 +6,10 @@ library(data.table)
 
 utils <- rlang::env()
 
-utils$total <- function(data, by, index.by) {
+utils$total <- function(data, by, index_by) {
   stopifnot(!is.na(match('count', names(data))))
   data <- data[, .(count = sum(count)), by = by]
-  setkeyv(data, index.by)
+  setkeyv(data, index_by)
   data
 }
 
@@ -26,19 +26,21 @@ utils$calc_pct <- function(data, total, index_by) {
   data
 }
 
-utils$pct <- function(data,
-                      re.variable = '.+',
-                      re.column = '.+',
-                      by = NULL,
-                      by_total = NULL,
-                      by_index = NULL,
-                      value.var = 'count',
-                      age_groups = c(),
-                      districts = c(),
-                      .split = NULL,
-                      diff = F) {
-  data <- if (!is.null(re.variable)) data[str_detect(variable, re.variable)] else data
-  data <- if (!is.null(re.column)) data[str_detect(column, re.column)] else data
+utils$pct <- function(
+  data,
+  variable_pattern = '.+',
+  column_pattern = '.+',
+  by = NULL,
+  by_total = NULL,
+  by_index = NULL,
+  value.var = 'count',
+  age_groups = c(),
+  districts = c(),
+  .split = NULL,
+  diff = F
+) {
+  data <- if (!is.null(variable_pattern)) data[str_detect(variable, variable_pattern)] else data
+  data <- if (!is.null(column_pattern)) data[str_detect(column, column_pattern)] else data
   data <- utils$count(data, by, age_groups, districts)
   by_total <- if (is.null(by_total)) by[1:length(by)-1] else by_total
   total <- utils$total(data, by_total, by_index)
@@ -52,6 +54,6 @@ utils$diff <- function(data, value.var = 'count') {
   .formula <- grep('^(count|N|type)$', .cols, invert = T, value = T)
   .formula <- paste0(paste0(.formula, collapse = ' + '), ' ~ type')
   data <- dcast(data, .formula, value.var = value.var)
-  data$diff <- round(data$post - data$pre, 2) 
+  data$diff <- round(data$post - data$pre, 2)
   data
 }
